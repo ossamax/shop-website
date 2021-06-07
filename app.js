@@ -165,16 +165,14 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(() => {
       let localStorageCartItems = JSON.parse(localStorage.getItem("cart"));
+      let newCart = [...cart, ...localStorageCartItems];
+      let btns = document.querySelectorAll(".bag-btn");
+     
+      btns.forEach((btn) => console.log(btn.dataset.id));
       localStorageCartItems.forEach((item) => {
         ui.addCartItem(item);
       });
-
-      let btnsDOM = document.querySelectorAll(".bag-btn");
-      for (let i = 0; i < localStorageCartItems.length; i++) {
-        btnsDOM[i].innerText = "In Cart";
-        btnsDOM[i].disabled = "true";
-        ui.setCartValues(localStorageCartItems);
-      }
+      ui.setCartValues(newCart);
     });
 
   cartBtn.addEventListener("click", () => {
